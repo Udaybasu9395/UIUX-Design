@@ -57,6 +57,7 @@ console.log(result.data);
 setLoading(false);
 
 //Navigate to project route
+router.push('/project/'+projectId);
 
 }
 
