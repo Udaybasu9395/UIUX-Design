@@ -7,7 +7,7 @@ import {
 export const usersTable = pgTable("users", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: varchar({ length: 255 }).notNull(),
-  age: integer().notNull(),
+  age: integer().default(0),
   email: varchar({ length: 255 }).notNull().unique(),
   credit: integer().default(5),
 });
