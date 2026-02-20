@@ -1,6 +1,9 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 
 import {
   Camera,
@@ -15,12 +18,20 @@ import {
   THEME_NAME_LIST,
   THEMES,
 } from '@/data/Themes';
+import { ProjectType } from '@/type/types';
 
-function SettingsSection() {
-const [selectedTheme,setSelectedTheme] = useState('AURORA_INK');
+type props={
+  projectDetail:ProjectType|undefined
+}
+
+function SettingsSection({projectDetail}:props) {
+const [selectedTheme,setSelectedTheme] = useState('NETFLIX');
 const [projectName,setProjectName] = useState('');
 const [userNewScreenInput,setUserNewScreenInput] = useState<string>('');
 
+useEffect(()=>{
+  setProjectName(projectDetail?.projectName ?? '')
+},[projectDetail])
 
 
   return (
@@ -29,7 +40,7 @@ const [userNewScreenInput,setUserNewScreenInput] = useState<string>('');
 
         <div className='mt-3'>
         <h2 className='text-sm mb-1'>Project Name</h2>
-        <Input placeholder='Project Name'
+        <Input placeholder='Project Name' value={projectName}
         onChange={(event)=>setProjectName(event.target.value)}
         />
         </div>

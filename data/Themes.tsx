@@ -1,5 +1,5 @@
 export const THEMES = {
-  AURORA_INK: {
+  NETFLIX: {
     background: "#0b1020",
     foreground: "#f4f6ff",
 
@@ -38,7 +38,7 @@ export const THEMES = {
     ],
   },
 
-  DUSTY_ORCHID: {
+  SHOPIFY: {
     background: "#fdf2f8",
     foreground: "#221827",
 
@@ -77,7 +77,7 @@ export const THEMES = {
     ],
   },
 
-  CITRUS_SLATE: {
+  AMAZON: {
     background: "#0f141a",
     foreground: "#f5f7fb",
 
@@ -116,7 +116,7 @@ export const THEMES = {
     ],
   },
 
-  MOSS_PARCHMENT: {
+  GOOGLE: {
     background: "#f7f5ef",
     foreground: "#1d261f",
 
@@ -155,7 +155,7 @@ export const THEMES = {
     ],
   },
 
-  POLAR_MINT: {
+  SPOTIFY: {
     background: "#f2fbff",
     foreground: "#0d1b2a",
 
@@ -194,7 +194,7 @@ export const THEMES = {
     ],
   },
 
-  OBSIDIAN_BLOOM: {
+  APPLE: {
     background: "#0a0a0d",
     foreground: "#f7f7fb",
 
@@ -232,16 +232,56 @@ export const THEMES = {
       "#b18cff",
     ],
   },
-} as const;
 
-export const THEME_NAME_LIST = [
-  "AURORA_INK",
-  "DUSTY_ORCHID",
-  "CITRUS_SLATE",
-  "MOSS_PARCHMENT",
-  "POLAR_MINT",
-  "OBSIDIAN_BLOOM",
-]
+  GITHUB: {
+    background: "#0d1117",
+    foreground: "#c9d1d9",
+
+    card: "#161b22",
+    cardForeground: "#c9d1d9",
+
+    popover: "#161b22",
+    popoverForeground: "#c9d1d9",
+
+    primary: "#58a6ff",
+    primaryRgb: "88, 166, 255",
+    primaryForeground: "#0d1117",
+
+    secondary: "#21262d",
+    secondaryForeground: "#c9d1d9",
+
+    muted: "#161b22",
+    mutedForeground: "#8b949e",
+
+    accent: "#3fb950",
+    accentForeground: "#0d1117",
+
+    destructive: "#f85149",
+
+    border: "#30363d",
+    input: "#21262d",
+    ring: "#58a6ff",
+    radius: "0.6rem",
+
+    chart: [
+      "#58a6ff",
+      "#3fb950",
+      "#f85149",
+      "#d29922",
+      "#a371f7",
+    ],
+  },
+} as const;
 
 export type ThemeKey = keyof typeof THEMES;
 export type Theme = (typeof THEMES)[ThemeKey];
+
+export const THEME_NAME_LIST: ThemeKey[] = [
+  "NETFLIX",
+  "SHOPIFY",
+  "AMAZON",
+  "GOOGLE",
+  "SPOTIFY",
+  "APPLE",
+  "GITHUB",
+]
