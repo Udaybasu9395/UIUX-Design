@@ -13,6 +13,7 @@ import {
   ScreenConfig,
 } from '@/type/types';
 
+import Canvas from './_shared/Canvas';
 import ProjectHeader from './_shared/ProjectHeader';
 import SettingsSection from './_shared/SettingsSection';
 
@@ -20,6 +21,7 @@ function ProjectCanvasPlayground() {
 
 const {projectId}=useParams();
 const [projectDetail,setProjectDetail]= useState<ProjectType>();
+const [screenConfigOriginal,setScreenConfigOriginal]=useState<ScreenConfig[]>([]);
 const [screenConfig,setScreenConfig]=useState<ScreenConfig[]>([]);
 const [loading,setLoading]=useState(true);
 const [loadingMsg,setLoadingMsg]=useState('Loading');
@@ -34,6 +36,7 @@ const GetProjectDetail=async ()=>{
   const result=await axios.get('/api/project?projectId='+projectId);
   console.log(result.data);
   setProjectDetail(result?.data?.projectDetail);
+  setScreenConfigOriginal(result?.data?.screenConfig);
   setScreenConfig(result?.data?.screenConfig);
   // if(result.data?.screenConfig.length === 0){
   //   generateScreenConfig();
@@ -42,14 +45,15 @@ const GetProjectDetail=async ()=>{
 }
 
 useEffect(()=>{
-  if(projectDetail&&screenConfig&&screenConfig.length === 0){
+  if(projectDetail&&setScreenConfigOriginal&&setScreenConfigOriginal.length === 0){
     generateScreenConfig();
   }
-else if(projectDetail&&screenConfig){
+else if(projectDetail&&screenConfigOriginal){
+  console.log('EXCU')
   GenerateScreenUIUX();
 }
 
-},[projectDetail, screenConfig])
+},[projectDetail, screenConfigOriginal])
 
 
 const generateScreenConfig=async ()=>{
@@ -94,7 +98,7 @@ setLoading(false);
     <div>
       <ProjectHeader/>
 
-      <div>
+      <div className='flex '>
 
 
        {loading && <div className='p-3 absolute bg-blue-300/20 border-blue-400 border rounded-xl left-1/2 top-20'>
@@ -107,6 +111,8 @@ setLoading(false);
 
 
         {/*Canvas*/}
+       <Canvas projectDetial={projectDetail} screenConfig={screenConfig} />
+
       </div>
     </div>
   )
