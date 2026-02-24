@@ -6,12 +6,15 @@ import React, {
 
 import axios from 'axios';
 
+import { SettingContext } from '@/context/SettingContext';
+
 import { UserDetailContext } from '../context/UserDetailContext';
 
 function Provider({children}:any) {
 
 
   const [userDetail,setUserDetail] = useState();
+  const [settingDetail, setSettingDetail] = useState();
     useEffect(()=>{
         CreateNewUser();
     }, [])
@@ -26,7 +29,9 @@ function Provider({children}:any) {
   return (
     
       <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
+        <SettingContext.Provider value={{settingDetail,setSettingDetail}}>
      <div>  {children}</div>
+     </SettingContext.Provider>
       </UserDetailContext.Provider>
     
   )
