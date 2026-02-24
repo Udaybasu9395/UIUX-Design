@@ -3,10 +3,17 @@
 import React, { useState } from 'react';
 
 import {
+  Minus,
+  Plus,
+  RefreshCw,
+} from 'lucide-react';
+import {
   TransformComponent,
   TransformWrapper,
+  useControls,
 } from 'react-zoom-pan-pinch';
 
+import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
   ProjectType,
@@ -31,7 +38,17 @@ const SCREEN_WIDTH=isMobile?400:1200;
 const SCREEN_HEIGHT=isMobile?800:800;
 const GAP=isMobile?10:70;
 
+const Controls = () => {
+  const { zoomIn, zoomOut, resetTransform } = useControls();
 
+  return (
+    <div className="tools absolute p-2 px-3 bg-white shadow flex gap-3 rounded-4xl bottom-10 left-1/2 z-30 text-gray-500">
+      <Button variant={'ghost'} size={'sm'} onClick={() => zoomIn()}><Plus/></Button>
+      <Button variant={'ghost'} size={'sm'} onClick={() => zoomOut()}><Minus/></Button>
+      <Button variant={'ghost'} size={'sm'} onClick={() => resetTransform()}><RefreshCw/></Button>
+    </div>
+  );
+};
 
 
   return (
@@ -51,6 +68,10 @@ const GAP=isMobile?10:70;
       doubleClick={{disabled:false}}
       panning={{disabled: !panningEnabled}}
       >
+    {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
+        <>
+          <Controls />
+
       <TransformComponent 
     wrapperStyle={{width:"100%",height:"100%"}}>
     {screenConfig?.map((screen,index)=>(
@@ -83,6 +104,7 @@ const GAP=isMobile?10:70;
 ))}
 
       </TransformComponent>
+      </>)}
     </TransformWrapper>
     </div>
   )

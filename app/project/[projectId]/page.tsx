@@ -1,5 +1,6 @@
 "use client"
 import {
+  useContext,
   useEffect,
   useState,
 } from 'react';
@@ -8,6 +9,7 @@ import axios from 'axios';
 import { Loader2Icon } from 'lucide-react';
 import { useParams } from 'next/navigation';
 
+import { SettingContext } from '@/context/SettingContext';
 import {
   ProjectType,
   ScreenConfig,
@@ -23,6 +25,7 @@ const {projectId}=useParams();
 const [projectDetail,setProjectDetail]= useState<ProjectType>();
 const [screenConfigOriginal,setScreenConfigOriginal]=useState<ScreenConfig[]>([]);
 const [screenConfig,setScreenConfig]=useState<ScreenConfig[]>([]);
+const {settingDetail,setSettingDetail}=useContext(SettingContext);
 const [loading,setLoading]=useState(true);
 const [loadingMsg,setLoadingMsg]=useState('Loading');
 
@@ -41,6 +44,7 @@ const GetProjectDetail=async ()=>{
   // if(result.data?.screenConfig.length === 0){
   //   generateScreenConfig();
   // }
+  setSettingDetail(result?.data?.projectDetail);
   setLoading(false);
 }
 

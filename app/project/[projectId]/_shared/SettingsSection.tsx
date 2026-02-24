@@ -1,6 +1,7 @@
 "use client";
 
-import React, {
+import {
+  useContext,
   useEffect,
   useState,
 } from 'react';
@@ -14,6 +15,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { SettingContext } from '@/context/SettingContext';
 import {
   THEME_NAME_LIST,
   THEMES,
@@ -28,11 +30,20 @@ function SettingsSection({projectDetail}:props) {
 const [selectedTheme,setSelectedTheme] = useState('NETFLIX');
 const [projectName,setProjectName] = useState('');
 const [userNewScreenInput,setUserNewScreenInput] = useState<string>('');
+const {settingDetail,setSettingDetail}=useContext(SettingContext);
 
 useEffect(()=>{
-  setProjectName(projectDetail?.projectName ?? '')
+  setProjectName(projectDetail?.projectName ?? '');
+  setSelectedTheme(projectDetail?.theme as string);
 },[projectDetail])
 
+const onThemeSelect=(theme:string)=>{
+  setSelectedTheme(theme);
+  setSettingDetail((prev: any)=>({
+    ...prev,
+    theme:theme
+  }))
+}
 
   return (
     <div className='w-[300px]  h-[90vh] p-5 border-r'>
@@ -41,7 +52,12 @@ useEffect(()=>{
         <div className='mt-3'>
         <h2 className='text-sm mb-1'>Project Name</h2>
         <Input placeholder='Project Name' value={projectName}
-        onChange={(event)=>setProjectName(event.target.value)}
+        onChange={(event)=>{setProjectName(event.target.value )
+          setSettingDetail((prev: any)=>({
+    ...prev,
+    projectName:projectName
+  }))
+        }}
         />
         </div>
         <div className='mt-5'>
@@ -58,7 +74,7 @@ useEffect(()=>{
             <div>
                 {THEME_NAME_LIST.map((theme) => (
                   <div key={theme} className={`p-3 border rounded-2xl mb-2
-                  ${selectedTheme===theme&&'border-primary bg-primary/20'}`} onClick={() => setSelectedTheme(theme)}>
+                  ${selectedTheme===theme&&'border-primary bg-primary/20'}`} onClick={() => onThemeSelect(theme)}>
                         <h2>{theme}</h2>
                         <div className='flex gap-2'>
                         <div className={`h-4 w-4 rounded-full`}

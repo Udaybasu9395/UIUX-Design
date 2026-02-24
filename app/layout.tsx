@@ -3,6 +3,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { DM_Sans } from 'next/font/google';
 
+import { Toaster } from '@/components/ui/sonner';
 import { ClerkProvider } from '@clerk/nextjs';
 
 import Provider from './provider';
@@ -30,6 +31,7 @@ export default function RootLayout({
         <Provider>
           {children}
         </Provider>
+        <Toaster position='top-center' />
       </body>
     </html>
     </ClerkProvider>
